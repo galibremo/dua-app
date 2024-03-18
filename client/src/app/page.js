@@ -10,14 +10,6 @@ export default function Home() {
   const [activeTab, setActiveTab] = useState(0);
   const [itemId, setItemId] = useState(1);
 
-  function toggleTab(tab) {
-    if (activeTab === tab) {
-      setActiveTab();
-    } else {
-      setActiveTab(tab);
-    }
-  }
-
   return (
     <div className="w-full max-h-screen flex p-1 bg-[#ebeef2]">
       <div className="p-5">
@@ -28,7 +20,6 @@ export default function Home() {
         <div className="flex gap-5">
           <Categorie
             setActiveTab={setActiveTab}
-            toggleTab={toggleTab}
             activeTab={activeTab}
             setItemId={setItemId}
             itemId={itemId}
