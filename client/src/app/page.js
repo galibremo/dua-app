@@ -1,6 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState } from "react";
 import SideBar from "./components/SideBar";
 import DuaCard from "./components/DuaCard";
 import Categorie from "./components/Categorie";
@@ -24,7 +23,7 @@ export default function Home() {
             setItemId={setItemId}
             itemId={itemId}
           />
-          <DuaCard activeTab={activeTab} itemId={itemId} />
+          <DuaCard itemId={itemId} activeTab={activeTab} />
         </div>
       </div>
     </div>

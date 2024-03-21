@@ -1,11 +1,10 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { FaSearch } from "react-icons/fa";
 import axios from "axios";
 
 export default function Categorie({
   setActiveTab,
-  toggleTab,
   activeTab,
   itemId,
   setItemId,
@@ -40,7 +39,7 @@ export default function Categorie({
       }
     };
     fetchSubCat(itemId);
-  }, [itemId]);
+  }, [activeTab, itemId]);
 
   async function handleSearchChange(e) {
     const term = e.target.value;
@@ -52,8 +51,25 @@ export default function Categorie({
         product.cat_name_en.toLowerCase().includes(term.toLowerCase())
       );
     setSearchData(filteredProducts);
+    setActiveTab(-1);
     setSubCategoryData([]);
   }
+
+  const scrollToTop = () => {
+    const element = document.getElementById(subCatId);
+    element?.scrollIntoView({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
+  function scrollTop() {
+    const element = document.getElementById("scrollTop");
+    element?.scrollIntoView({
+      behavior: "smooth",
+    });
+  }
+
   return (
     <div className="w-[350px] h-[84vh] bg-white rounded-xl">
       <h1 className="text-center text-lg p-4 bg-[#1FA15A] rounded-t-xl ">
@@ -80,11 +96,18 @@ export default function Categorie({
           {searchTerm
             ? searchData.map((item, index) => (
                 <div
+                  id="test"
                   key={index}
-                  className="flex flex-col mb-2 hover:bg-[#E8F0F5] p-4 rounded-lg w-[310px] cursor-pointer"
-                  onClick={() => setItemId(item.cat_id) || setActiveTab(index)}
+                  className="flex flex-col mb-2 w-[330px] cursor-pointer px-2"
                 >
-                  <div className="flex items-center gap-3">
+                  <div
+                    className="flex items-center gap-3 hover:bg-[#E8F0F5] rounded-lg p-2"
+                    onClick={() =>
+                      setItemId(item.cat_id) ||
+                      setActiveTab(index) ||
+                      scrollTop()
+                    }
+                  >
                     <div className="bg-slate-200 rounded-lg p-3">
                       <img
                         src="https://duaruqyah.com/assets/icon/duar_gurutto.svg"
@@ -107,8 +130,33 @@ export default function Categorie({
                   </div>
                   {activeTab === index &&
                     subCategoryData.map((item, index) => (
-                      <div key={index} className="text-sm p-2 mb-1">
-                        {item.subcat_name_en}
+                      <div
+                        key={index}
+                        className="flex items-center text-sm mb-1 gap-4 px-5 ml-3"
+                      >
+                        <div className="flex flex-col items-center gap-1">
+                          <div className="bg-[#1FA15A] rounded-full min-h-[2px] min-w-[2px]"></div>
+                          <div className="bg-[#1FA15A] rounded-full min-h-[2px] min-w-[2px]"></div>
+                          <div className="bg-[#1FA15A] rounded-full min-h-[2px] min-w-[2px]"></div>
+                          <div className="bg-[#1FA15A] rounded-full min-h-[2px] min-w-[2px]"></div>
+                          <div className="bg-[#1FA15A] rounded-full min-h-1.5 min-w-1.5"></div>
+                          <div className="bg-[#1FA15A] rounded-full min-h-[2px] min-w-[2px]"></div>
+                          <div className="bg-[#1FA15A] rounded-full min-h-[2px] min-w-[2px]"></div>
+                          <div className="bg-[#1FA15A] rounded-full min-h-[2px] min-w-[2px]"></div>
+                          <div className="bg-[#1FA15A] rounded-full min-h-[2px] min-w-[2px]"></div>
+                        </div>
+                        <div
+                          onClick={() => {
+                            const element = document.getElementById(
+                              item.subcat_id
+                            );
+                            element?.scrollIntoView({
+                              behavior: "smooth",
+                            });
+                          }}
+                        >
+                          {item.subcat_name_en}
+                        </div>
                       </div>
                     ))}
                 </div>
@@ -116,10 +164,16 @@ export default function Categorie({
             : categoryData.map((item, index) => (
                 <div
                   key={index}
-                  className="flex flex-col mb-2 hover:bg-[#E8F0F5] p-4 rounded-lg w-[310px] cursor-pointer"
-                  onClick={() => setItemId(item.cat_id) || setActiveTab(index)}
+                  className="flex flex-col mb-2 w-[330px] cursor-pointer px-2"
                 >
-                  <div className="flex items-center gap-3">
+                  <div
+                    className="flex items-center gap-3 hover:bg-[#E8F0F5] rounded-lg p-2"
+                    onClick={() =>
+                      setItemId(item.cat_id) ||
+                      setActiveTab(index) ||
+                      scrollTop()
+                    }
+                  >
                     <div className="bg-slate-200 rounded-lg p-3">
                       <img
                         src="https://duaruqyah.com/assets/icon/duar_gurutto.svg"
@@ -142,8 +196,33 @@ export default function Categorie({
                   </div>
                   {activeTab === index &&
                     subCategoryData.map((item, index) => (
-                      <div key={index} className="text-sm p-2 mb-1">
-                        {item.subcat_name_en}
+                      <div
+                        key={index}
+                        className="flex items-center text-sm mb-1 gap-4 px-5 ml-3"
+                      >
+                        <div className="flex flex-col items-center gap-1">
+                          <div className="bg-[#1FA15A] rounded-full min-h-[2px] min-w-[2px]"></div>
+                          <div className="bg-[#1FA15A] rounded-full min-h-[2px] min-w-[2px]"></div>
+                          <div className="bg-[#1FA15A] rounded-full min-h-[2px] min-w-[2px]"></div>
+                          <div className="bg-[#1FA15A] rounded-full min-h-[2px] min-w-[2px]"></div>
+                          <div className="bg-[#1FA15A] rounded-full min-h-1.5 min-w-1.5"></div>
+                          <div className="bg-[#1FA15A] rounded-full min-h-[2px] min-w-[2px]"></div>
+                          <div className="bg-[#1FA15A] rounded-full min-h-[2px] min-w-[2px]"></div>
+                          <div className="bg-[#1FA15A] rounded-full min-h-[2px] min-w-[2px]"></div>
+                          <div className="bg-[#1FA15A] rounded-full min-h-[2px] min-w-[2px]"></div>
+                        </div>
+                        <div
+                          onClick={() => {
+                            const element = document.getElementById(
+                              item.subcat_id
+                            );
+                            element?.scrollIntoView({
+                              behavior: "smooth",
+                            });
+                          }}
+                        >
+                          {item.subcat_name_en}
+                        </div>
                       </div>
                     ))}
                 </div>

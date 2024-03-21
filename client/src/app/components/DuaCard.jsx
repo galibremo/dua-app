@@ -2,14 +2,13 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import BottomBar from "./BottomBar";
 
-export default function DuaCard({ activeTab, itemId }) {
+export default function DuaCard({ itemId }) {
   const [dua, setDua] = useState([]);
+
   useEffect(() => {
     const fetchDua = async (id) => {
       try {
-        const response = await axios.get(
-          `http://localhost:8080/api/dua/${itemId}`
-        );
+        const response = await axios.get(`http://localhost:8080/api/dua/${id}`);
         setDua(response.data);
       } catch (error) {
         console.error(error);
@@ -23,8 +22,12 @@ export default function DuaCard({ activeTab, itemId }) {
       <div className="h-[84vh] overflow-y-scroll rounded-xl">
         {dua &&
           dua.map((item, index) => (
-            <div key={index} className="bg-white rounded-xl p-5 mb-5">
-              <div className="p-5 text-justify">
+            <div
+              key={index}
+              className="bg-white rounded-xl p-5 mb-5"
+              id="scrollTop"
+            >
+              <div className="p-5 text-justify" id={item.subcat_id}>
                 <div className="flex items-center gap-5">
                   <img src="https://duaruqyah.com/assets/duacard.svg" alt="" />
                   <h2 className="text-[#1FA45B] font-semibold">

@@ -52,6 +52,18 @@ app.get("/api/subcategories/:id", (req, res) => {
   });
 });
 
+app.get("/api/dua/:catid/:subcatid", (req, res) => {
+  const sql = `SELECT * FROM dua WHERE cat_id = ${req.params.catid} AND subcat_id = ${req.params.subcatid}`;
+  db.all(sql, (err, rows) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ message: "Error fetching data" });
+    }
+
+    res.json(rows);
+  });
+});
+
 app.listen(port, () => {
   console.log(`Server running on port ${port}!`);
 });
