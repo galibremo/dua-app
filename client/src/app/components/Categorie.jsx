@@ -9,6 +9,7 @@ export default function Categorie({
   itemId,
   setItemId,
 }) {
+  const [activeSub, setActiveSub] = useState(0);
   const [categoryData, setCategoryData] = useState([]);
   const [subCategoryData, setSubCategoryData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -54,14 +55,6 @@ export default function Categorie({
     setActiveTab(-1);
     setSubCategoryData([]);
   }
-
-  const scrollToTop = () => {
-    const element = document.getElementById(subCatId);
-    element?.scrollIntoView({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
 
   function scrollTop() {
     const element = document.getElementById("scrollTop");
@@ -212,7 +205,13 @@ export default function Categorie({
                           <div className="bg-[#1FA15A] rounded-full min-h-[2px] min-w-[2px]"></div>
                         </div>
                         <div
+                          className={`${
+                            activeSub === index
+                              ? "text-[#1FA15A]"
+                              : "text-black"
+                          }`}
                           onClick={() => {
+                            setActiveSub(index);
                             const element = document.getElementById(
                               item.subcat_id
                             );
